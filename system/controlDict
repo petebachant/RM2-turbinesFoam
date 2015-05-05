@@ -1,0 +1,67 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.3.x                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     pimpleFoam;
+
+startFrom       startTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime         6;
+
+deltaT          0.01;
+
+writeControl    timeStep;
+
+writeInterval   1;
+
+purgeWrite      0;
+
+writeFormat     ascii;
+
+writePrecision  12;
+
+writeCompression uncompressed;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable true;
+
+adjustTimeStep  false;
+
+maxCo           0.9;
+
+libs
+(
+    "libOpenFOAM.so"
+    "libincompressibleTurbulenceModel.so"
+    "libincompressibleRASModels.so"
+    "libturbinesFoam.so"
+);
+
+DebugSwitches
+{
+    crossFlowTurbineALSource 1;
+    actuatorLineSource  1;
+    actuatorLineElement 0;
+    LeishmanBeddoes 1;
+}
+
+// ************************************************************************* //

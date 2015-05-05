@@ -1,0 +1,150 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.3.x                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvOptions;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+
+turbine
+{
+    type            crossFlowTurbineALSource;
+    active          on;
+    selectionMode   cellSet;    // cellSet // points //cellZone
+    cellSet         turbine;
+
+    crossFlowTurbineALSourceCoeffs
+    {
+        fieldNames      (U);
+        nBlades	        3;
+        tipEffect       0.95; 
+
+        freeStreamVelocity (1 0 0);
+        upstreamPoint   (-1.0, 0, 0); // probably don't need this
+        tipSpeedRatio   3.1;
+
+        origin          (0 0 0);
+        axis            (0 0 1); // negative for opposite rotation
+        rotorRadius     0.5; // for tip speed ratio calculation
+        
+        dynamicStall
+        {
+            active              on;
+            dynamicStallModel   LeishmanBeddoes;
+        }
+
+        blades
+        {
+            blade1
+            {
+                nElements   20;
+                profile     NACA0021;
+                elementData
+                ( // axialDistance, radius, azimuth, chord, chordMount, pitch
+                    (-0.4 0.54 0.0 0.040 0.5 0.0)
+                    ( 0.0 0.54 0.0 0.067 0.5 0.0)
+                    ( 0.4 0.54 0.0 0.040 0.5 0.0)
+                );
+            }
+            blade2
+            {
+                nElements   20;
+                profile     NACA0021;
+                elementData
+                ( // axialDistance, radius, azimuth, chord, chordMount, pitch
+                    (-0.4 0.54 120.0 0.040 0.5 0.0)
+                    ( 0.0 0.54 120.0 0.067 0.5 0.0)
+                    ( 0.4 0.54 120.0 0.040 0.5 0.0)
+                );
+            }
+            blade3
+            {
+                nElements   20;
+                profile     NACA0021;
+                elementData
+                ( // axialDistance, radius, azimuth, chord, chordMount, pitch
+                    (-0.4 0.54 240.0 0.040 0.5 0.0)
+                    ( 0.0 0.54 240.0 0.067 0.5 0.0)
+                    ( 0.4 0.54 240.0 0.040 0.5 0.0)
+                );
+            }
+        }
+        
+        struts
+        {
+            strut1
+            {
+                nElements   10;
+                profile     NACA0021;
+                elementData
+                ( // axialDistance, radius, azimuth, chord, chordMount, pitch
+                    (0.0 0.04 0.0 0.06 0.5 0.0)
+                    (0.0 0.53 0.0 0.06 0.5 0.0)
+                );
+            }
+            strut2
+            {
+                nElements   10;
+                profile     NACA0021;
+                elementData
+                ( // axialDistance, radius, azimuth, chord, chordMount, pitch
+                    (0.0 0.04 120.0 0.06 0.5 0.0)
+                    (0.0 0.53 120.0 0.06 0.5 0.0)
+                );
+            }
+            strut3
+            {
+                nElements   10;
+                profile     NACA0021;
+                elementData
+                ( // axialDistance, radius, azimuth, chord, chordMount, pitch
+                    (0.0 0.04 240.0 0.06 0.5 0.0)
+                    (0.0 0.53 240.0 0.06 0.5 0.0)
+                );
+            }
+        }
+        
+        shaft
+        { 
+            nElements   20;
+            profile     cylinder;
+            elementData
+            ( // axialDistance, diameter
+                (-0.66 0.0635)
+                ( 0.66 0.0635)
+            );
+        }
+        
+        profiles
+        {
+            NACA0021
+            {
+                data ( // alpha C_l C_d
+                    #include "NACA0021_1.6e5"
+                );
+            }
+            NACA64_A17
+            {
+                data (
+                    #include "NACA64_A17"
+                );
+            }
+            cylinder
+            {
+                data ((-180 0 1.1)(180 0 1.1));
+            }
+        }
+    }
+}
+
+// ************************************************************************* //
