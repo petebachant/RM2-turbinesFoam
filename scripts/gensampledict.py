@@ -1,10 +1,7 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 Generate sampleDict for multiple cross-stream profiles
-
-by Pete Bachant (petebachant@gmail.com)
-
 """
 from __future__ import division, print_function
 import numpy as np
@@ -17,17 +14,17 @@ setformat = "raw"
 interpscheme = "cellPoint"
 fields = ["U", "vorticity"]
 x = 1.0
-ymax = 1.83
-ymin = -1.83
+ymax = 1.82
+ymin = -1.82
 ny = 41
-zmax = 1.22
-zmin = -1.22
+zmax = 1.21
+zmin = -1.21
 nz = 21
 
 header = r"""/*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  2.3.x                                 |
+|  \\    /   O peration     | Version:  2.4.x                                 |
 |   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
