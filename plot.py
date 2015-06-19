@@ -36,10 +36,8 @@ def plot_meancontquiv():
                    edgecolor="none", scale=3.0)
     plt.xlabel(r'$y/R$')
     plt.ylabel(r'$z/H$')
-    #plt.ylim(-0.2, 0.78)
-    #plt.xlim(-3.2, 3.2)
-    plt.xlim(-3.66, 3.66)
-    plt.ylim(-1.22, 1.22)
+    plt.xlim(-3.66/D, 3.66/D)
+    plt.ylim(-1.22/H, 1.22/H)
     plt.quiverkey(Q, 0.8, 0.22, 0.1, r'$0.1 U_\infty$',
                labelpos='E',
                coordinates='figure',
@@ -53,7 +51,7 @@ def plot_meancontquiv():
     plt.vlines(1, -0.5, 0.5, linestyles='solid', colors='gray',
                linewidth=3)
     ax = plt.axes()
-    ax.set_aspect(2.0)
+    ax.set_aspect(H/R)
 
 def plot_cp(angle0=540.0):
     df = pd.read_csv("postProcessing/turbines/0/turbine.csv")

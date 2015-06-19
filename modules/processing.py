@@ -90,6 +90,7 @@ def calcwake(t1=0.0):
     meanv = v.mean(axis=0)
     meanw = w.mean(axis=0)
     xvorticity = xvorticity.mean(axis=0)
+    z_H /= H
     return {"meanu" : meanu,
             "meanv" : meanv,
             "meanw" : meanw,
