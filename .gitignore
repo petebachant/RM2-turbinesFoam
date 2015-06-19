@@ -2,3 +2,4 @@
 [0-9]*
 constant/polyMesh/boundary
 *.OpenFOAM
+!0.org
