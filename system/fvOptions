@@ -1,7 +1,7 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  2.3.x                                 |
+|  \\    /   O peration     | Version:  2.4.x                                 |
 |   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
@@ -30,7 +30,6 @@ turbine
         tipEffect       0.95; 
 
         freeStreamVelocity (1 0 0);
-        upstreamPoint   (-1.0, 0, 0); // probably don't need this
         tipSpeedRatio   3.1;
 
         origin          (0 0 0);
@@ -40,7 +39,12 @@ turbine
         dynamicStall
         {
             active              on;
-            dynamicStallModel   LeishmanBeddoes;
+            dynamicStallModel   LeishmanBeddoesSGC;
+        }
+
+        flowCurvature
+        {
+            active              on;
         }
 
         blades
