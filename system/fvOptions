@@ -44,13 +44,15 @@ turbine
 
         flowCurvature
         {
-            active              on;
+            active              off;
+            flowCurvatureModel  MandalBurton;
         }
 
         blades
         {
             blade1
             {
+                writePerf   true;
                 nElements   20;
                 profile     NACA0021;
                 elementData
