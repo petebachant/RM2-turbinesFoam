@@ -61,28 +61,19 @@ turbine
                     ( 0.0 0.5375 0.0 0.067 0.5 0.0)
                     ( 0.4 0.5375 0.0 0.040 0.5 0.0)
                 );
+                tipEffectLength 6;
+                rootEffectLength 6;
             }
             blade2
             {
-                nElements   20;
-                elementProfiles (NACA0021);
-                elementData
-                ( // axialDistance, radius, azimuth, chord, chordMount, pitch
-                    (-0.4 0.5375 120.0 0.040 0.5 0.0)
-                    ( 0.0 0.5375 120.0 0.067 0.5 0.0)
-                    ( 0.4 0.5375 120.0 0.040 0.5 0.0)
-                );
+                $blade1;
+                writePerf   false;
+                azimuthalOffset 120;
             }
             blade3
             {
-                nElements   20;
-                elementProfiles (NACA0021);
-                elementData
-                ( // axialDistance, radius, azimuth, chord, chordMount, pitch
-                    (-0.4 0.5375 240.0 0.040 0.5 0.0)
-                    ( 0.0 0.5375 240.0 0.067 0.5 0.0)
-                    ( 0.4 0.5375 240.0 0.040 0.5 0.0)
-                );
+                $blade2;
+                azimuthalOffset 240;
             }
         }
         
@@ -136,7 +127,7 @@ turbine
             NACA0021
             {
                 data ( // alpha C_l C_d
-                    #include "NACA0021_1.6e5"
+                    #include "NACA0021_3.6e5"
                 );
             }
             cylinder
