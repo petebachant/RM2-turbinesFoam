@@ -174,7 +174,7 @@ def plot_perf_curves(exp=False, save=False):
 
 
 def plot_al_perf(name="blade1", theta1=0, theta2=None, remove_offset=False,
-                 quantities=["alpha", "rel_vel_mag", "ct"]):
+                 quantities=["alpha", "rel_vel_mag"]):
     if isinstance(quantities, str):
         quantities = [quantities]
     df_turb = pd.read_csv("postProcessing/turbines/0/turbine.csv")
