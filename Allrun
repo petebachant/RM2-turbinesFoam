@@ -17,3 +17,4 @@ runApplication vorticity
 
 python scripts/gensampledict.py
 runApplication sample
+scripts/Allrun.post
