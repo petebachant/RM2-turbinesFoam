@@ -152,7 +152,7 @@ def plot_perf_curves(exp=False, save=False):
     df = pd.read_csv("processed/tsr_sweep.csv")
     if exp:
         df_exp = pd.read_csv("https://raw.githubusercontent.com/UNH-CORE/"
-                             "RVAT-Re-dep/master/Data/Processed/Perf-1.0.csv")
+                             "RM2-tow-tank/master/Data/Processed/Perf-1.0.csv")
     fig, ax = plt.subplots(figsize=(7.5, 3.5), nrows=1, ncols=2)
     ax[0].plot(df.tsr, df.cp, "-o", label="ALM")
     ax[0].set_ylabel(r"$C_P$")
