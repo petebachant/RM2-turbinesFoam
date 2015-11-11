@@ -35,7 +35,7 @@ turbine
         origin          (0 0 0);
         axis            (0 0 1); // negative for opposite rotation
         rotorRadius     0.5375; // for tip speed ratio calculation
-        
+
         dynamicStall
         {
             active              on;
@@ -75,7 +75,7 @@ turbine
                 azimuthalOffset 240;
             }
         }
-        
+
         struts
         {
             strut1
@@ -99,9 +99,9 @@ turbine
                 azimuthalOffset 240;
             }
         }
-        
+
         shaft
-        { 
+        {
             nElements   16;
             elementProfiles (cylinder);
             elementData
@@ -110,12 +110,13 @@ turbine
                 ( 0.66 0.0635)
             );
         }
-        
+
         profileData
         {
             NACA0021
             {
-                data ( // alpha C_l C_d
+                data
+                (   // alpha C_l C_d
                     #include "NACA0021_3.6e5"
                 );
             }
