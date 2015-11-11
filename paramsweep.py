@@ -49,10 +49,13 @@ def tsr_sweep(start=0.4, stop=3.4, step=0.5, append=False):
             call("./Allclean")
             print("Running blockMesh")
             call("blockMesh > log.blockMesh 2>&1", shell=True)
+            print("Running snappyHexMesh")
             call("snappyHexMesh -overwrite > log.snappyHexMesh 2>&1",
                  shell=True)
+            print("Running topoSet")
             call("topoSet > log.topoSet 2>&1", shell=True)
         else:
+            print("Running pimpleFoam")
             call("pimpleFoam > log.pimpleFoam 2>&1", shell=True)
         os.rename("log.pimpleFoam", "log.pimpleFoam." + str(tsr))
         log_perf(append=True)
