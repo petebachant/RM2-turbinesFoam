@@ -63,8 +63,8 @@ def tsr_sweep(start=0.4, stop=3.4, step=0.5, append=False):
             call("pimpleFoam > log.pimpleFoam", shell=True)
         os.rename("log.pimpleFoam", "log.pimpleFoam." + str(tsr))
         log_perf(append=True)
-    # Checkout original fvOptions
-    # call(["git", "checkout", "system/fvOptions"])
+    # Set tip speed ratio back to default
+    set_tsr(3.1)
 
 
 if __name__ == "__main__":
