@@ -54,6 +54,8 @@ def tsr_sweep(start=0.4, stop=3.4, step=0.5, append=False):
                  shell=True)
             print("Running topoSet")
             call("topoSet > log.topoSet 2>&1", shell=True)
+            print("Running pimpleFoam")
+            call("pimpleFoam > log.pimpleFoam 2>&1", shell=True)
         else:
             print("Running pimpleFoam")
             call("pimpleFoam > log.pimpleFoam 2>&1", shell=True)
