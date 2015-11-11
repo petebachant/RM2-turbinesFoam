@@ -9,6 +9,7 @@ import numpy as np
 from subprocess import call
 import os
 import pandas as pd
+import shutil
 from pyrm2tf import processing as pr
 
 
@@ -48,17 +49,18 @@ def tsr_sweep(start=0.4, stop=3.4, step=0.5, append=False):
         if tsr == tsrs[0]:
             call("./Allclean")
             print("Running blockMesh")
-            call("blockMesh > log.blockMesh 2>&1", shell=True)
+            call("blockMesh > log.blockMesh", shell=True)
             print("Running snappyHexMesh")
-            call("snappyHexMesh -overwrite > log.snappyHexMesh 2>&1",
+            call("snappyHexMesh -overwrite > log.snappyHexMesh",
                  shell=True)
             print("Running topoSet")
-            call("topoSet > log.topoSet 2>&1", shell=True)
+            call("topoSet > log.topoSet", shell=True)
+            shutil.copytree("0.org", "0")
             print("Running pimpleFoam")
-            call("pimpleFoam > log.pimpleFoam 2>&1", shell=True)
+            call("pimpleFoam > log.pimpleFoam", shell=True)
         else:
             print("Running pimpleFoam")
-            call("pimpleFoam > log.pimpleFoam 2>&1", shell=True)
+            call("pimpleFoam > log.pimpleFoam", shell=True)
         os.rename("log.pimpleFoam", "log.pimpleFoam." + str(tsr))
         log_perf(append=True)
     # Checkout original fvOptions
