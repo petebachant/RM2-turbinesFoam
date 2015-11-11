@@ -9,3 +9,4 @@ log.*
 system/sampleDict
 *.pvsm
 dynamicCode
+processed
