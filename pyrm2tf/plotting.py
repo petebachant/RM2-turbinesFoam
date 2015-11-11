@@ -20,13 +20,13 @@ labels = {"y_adv": r"$-V \frac{\partial U}{\partial y}$",
 
 def plot_exp_lines(color="gray", linewidth=2):
     """Plots the outline of the experimental y-z measurement plane"""
-    plt.hlines(0.625, -3, 3, linestyles="dashed", colors=color,
+    plt.hlines(0.75, -2.75, 2.75, linestyles="dashed", colors=color,
                linewidth=linewidth)
-    plt.hlines(0.0, -3, 3, linestyles="dashed", colors=color,
+    plt.hlines(0.0, -2.75, 2.75, linestyles="dashed", colors=color,
                linewidth=linewidth)
-    plt.vlines(-3.0, 0.0, 0.625, linestyles="dashed", colors=color,
+    plt.vlines(-2.75, 0.0, 0.75, linestyles="dashed", colors=color,
                linewidth=linewidth)
-    plt.vlines(3.0, 0.0, 0.625, linestyles="dashed", colors=color,
+    plt.vlines(2.75, 0.0, 0.75, linestyles="dashed", colors=color,
                linewidth=linewidth)
 
 
@@ -38,7 +38,7 @@ def plot_meancontquiv(save=False, show=False,
     mean_w = load_vel_map("w")
     y_R = np.round(np.asarray(mean_u.columns.values, dtype=float), decimals=4)
     z_H = np.asarray(mean_u.index.values, dtype=float)
-    plt.figure(figsize=(7.5, 4.5))
+    plt.figure(figsize=(7.5, 4.0))
     # Add contours of mean velocity
     cs = plt.contourf(y_R, z_H, mean_u,
                       np.arange(0.15, 1.25, 0.05), cmap=plt.cm.coolwarm)
@@ -61,14 +61,14 @@ def plot_meancontquiv(save=False, show=False,
                       coordinates="figure",
                       fontproperties={"size": "small"})
     elif cb_orientation == "vertical":
-        plt.quiverkey(Q, 0.65, 0.07, 0.1, r"$0.1 U_\infty$",
+        plt.quiverkey(Q, 0.65, 0.05, 0.1, r"$0.1 U_\infty$",
                       labelpos="E",
                       coordinates="figure",
                       fontproperties={"size": "small"})
     plot_turb_lines()
     plot_exp_lines()
     ax = plt.axes()
-    ax.set_aspect(2.0)
+    ax.set_aspect(H/R)
     plt.yticks(np.around(np.arange(-1.125, 1.126, 0.125), decimals=2))
     plt.tight_layout()
     if show:
