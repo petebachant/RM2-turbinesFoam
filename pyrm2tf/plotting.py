@@ -153,6 +153,11 @@ def plot_perf_curves(exp=False, save=False):
     if exp:
         df_exp = pd.read_csv("https://raw.githubusercontent.com/UNH-CORE/"
                              "RM2-tow-tank/master/Data/Processed/Perf-1.0.csv")
+        df_exp2 = pd.read_csv("https://raw.githubusercontent.com/UNH-CORE/"
+                              "RM2-tow-tank/master/Data/Processed/"
+                              "Perf-1.0-b.csv")
+        df_exp = df_exp.append(df_exp2, ignore_index=True)
+        df_exp = df_exp.groupby("tsr_nom").mean()
     fig, ax = plt.subplots(figsize=(7.5, 3.5), nrows=1, ncols=2)
     ax[0].plot(df.tsr, df.cp, "-o", label="ALM")
     ax[0].set_ylabel(r"$C_P$")
