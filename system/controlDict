@@ -99,14 +99,5 @@ functions
     }
 }
 
-DebugSwitches
-{
-    crossFlowTurbineALSource 0;
-    actuatorLineSource  0;
-    actuatorLineElement 0;
-    LeishmanBeddoes 1;
-    LeishmanBeddoes3G 1;
-    LeishmanBeddoesSGC 1;
-}
 
 // ************************************************************************* //
