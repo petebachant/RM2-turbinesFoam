@@ -24,6 +24,14 @@ def set_tsr(val):
     replace_value("system/fvOptions", "tipSpeedRatio", val)
 
 
+def run_solver(parallel=True):
+    """Run `pimpleFoam`."""
+    if parallel:
+        call("mpirun -np 2 pimpleFoam -parallel > log.pimpleFoam", shell=True)
+    else:
+        call("pimpleFoam > log.pimpleFoam", shell=True)
+
+
 def log_perf(param="tsr", append=True):
     """Log performance to file."""
     if not os.path.isdir("processed"):
@@ -37,11 +45,11 @@ def log_perf(param="tsr", append=True):
     df.to_csv(fpath, index=False)
 
 
-def tsr_sweep(start=0.4, stop=3.4, step=0.5, append=False):
-    """Run over multiple TSRs. `stop` will be included."""
+def tsr_sweep(start=0.4, stop=3.4, step=0.5, append=False, parallel=True):
+    """Run over multiple TSRs. `stop` will not be included."""
     if not append and os.path.isfile("processed/tsr_sweep.csv"):
         os.remove("processed/tsr_sweep.csv")
-    tsrs = np.arange(start, stop + 0.5*step, step)
+    tsrs = np.arange(start, stop, step)
     cp = []
     cd = []
     for tsr in tsrs:
@@ -56,11 +64,17 @@ def tsr_sweep(start=0.4, stop=3.4, step=0.5, append=False):
             print("Running topoSet")
             call("topoSet > log.topoSet", shell=True)
             shutil.copytree("0.org", "0")
+            if parallel:
+                print("Running decomposePar")
+                call("decomposePar > log.decomposePar", shell=True)
+                call("ls -d processor* | xargs -I {} rm -rf ./{}/0", shell=True)
+                call("ls -d processor* | xargs -I {} cp -r 0.org ./{}/0",
+                     shell=True)
             print("Running pimpleFoam")
-            call("pimpleFoam > log.pimpleFoam", shell=True)
+            run_solver(parallel=parallel)
         else:
             print("Running pimpleFoam")
-            call("pimpleFoam > log.pimpleFoam", shell=True)
+            run_solver(parallel=parallel)
         os.rename("log.pimpleFoam", "log.pimpleFoam." + str(tsr))
         log_perf(append=True)
     # Set tip speed ratio back to default
@@ -68,4 +82,4 @@ def tsr_sweep(start=0.4, stop=3.4, step=0.5, append=False):
 
 
 if __name__ == "__main__":
-    tsr_sweep(0.5, 5.0, 0.5, append=False)
+    tsr_sweep(1.1, 5.0, 0.5, append=False)
