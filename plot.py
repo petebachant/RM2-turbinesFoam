@@ -1,7 +1,5 @@
 #!/usr/bin/env python
-"""
-This script plots results from the turbinesFoam RM2 simulation.
-"""
+"""Plot results from the turbinesFoam RM2 simulation."""
 
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -19,7 +17,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate plots.")
     parser.add_argument("plot", nargs="*", help="What to plot", default="perf",
                         choices=["perf", "wake", "blade-perf", "strut-perf",
-                                 "perf-curves", "perf-curves-exp", "recovery"])
+                                 "perf-curves", "perf-curves-exp", "recovery",
+                                 "verification"])
     parser.add_argument("--all", "-A", help="Generate all figures",
                         default=False, action="store_true")
     parser.add_argument("--save", "-s", help="Save to `figures` directory",
@@ -49,6 +48,8 @@ if __name__ == "__main__":
         plot_perf_curves(exp=True, save=args.save)
     if "recovery" in args.plot or args.all:
         make_recovery_bar_chart(save=args.save)
+    if "verification" in args.plot or args.all:
+        plot_verification(save=args.save)
 
     if not args.noshow:
         plt.show()
