@@ -53,7 +53,7 @@ turbine
             blade1
             {
                 writePerf   true;
-                nElements   14;
+                nElements   16;
                 endEffects  on;
                 elementProfiles (NACA0021);
                 elementData
@@ -102,7 +102,7 @@ turbine
 
         shaft
         {
-            nElements   16;
+            nElements   21;
             elementProfiles (cylinder);
             elementData
             ( // axialDistance, diameter
