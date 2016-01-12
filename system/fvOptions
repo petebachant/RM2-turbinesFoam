@@ -45,7 +45,7 @@ turbine
         flowCurvature
         {
             active              off;
-            flowCurvatureModel  MandalBurton;
+            flowCurvatureModel  Goude;
         }
 
         blades
@@ -53,8 +53,8 @@ turbine
             blade1
             {
                 writePerf   true;
-                nElements   16;
-                endEffects  on;
+                nElements  24;
+                endEffects  off;
                 elementProfiles (NACA0021);
                 elementData
                 ( // axialDistance, radius, azimuth, chord, chordMount, pitch
@@ -115,9 +115,10 @@ turbine
         {
             NACA0021
             {
+                Re      1.6e5;
                 data
                 (   // alpha C_l C_d
-                    #include "NACA0021_3.6e5"
+                    #include "NACA0021_1.6e5"
                 );
             }
             cylinder
