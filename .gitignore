@@ -8,6 +8,5 @@ log.*
 system/sampleDict
 *.pvsm
 dynamicCode
-processed
 figures
 processor*
