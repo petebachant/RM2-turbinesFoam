@@ -26,20 +26,21 @@ turbine
         fieldNames      (U);
         selectionMode   cellSet;    // cellSet // points //cellZone
         cellSet         turbine;
-        nBlades	        3;
-        addedMass       on;
-
         freeStreamVelocity (1 0 0);
         tipSpeedRatio   3.1;
-
         origin          (0 0 0);
         axis            (0 0 1); // negative for opposite rotation
         rotorRadius     0.5375; // for tip speed ratio calculation
+        addedMass       on;
 
         dynamicStall
         {
             active              on;
             dynamicStallModel   LeishmanBeddoesSGC;
+            LeishmanBeddoesSGCCoeffs
+            {
+                calcAlphaEquiv  off;
+            }
         }
 
         flowCurvature
@@ -53,7 +54,7 @@ turbine
             blade1
             {
                 writePerf   true;
-                nElements  24;
+                nElements  8;
                 endEffects  off;
                 elementProfiles (NACA0021);
                 elementData
@@ -80,29 +81,34 @@ turbine
         {
             strut1
             {
-                nElements   8;
-                elementProfiles (NACA0021);
+                nElements   6;
+                writePerf   true;
+                elementProfiles
+                (
+                    NACA0021 NACA0021 NACA0021 NACA0021 NACA0021 corner
+                );
                 elementData
                 ( // axialDistance, radius, azimuth, chord, chordMount, pitch
                     (0.0 0.04 0.0 0.06 0.5 0.0)
-                    (0.0 0.53 0.0 0.06 0.5 0.0)
+                    (0.0 0.54 0.0 0.06 0.5 0.0)
                 );
             }
             strut2
             {
                 $strut1;
+                writePerf   false;
                 azimuthalOffset 120;
             }
             strut3
             {
-                $strut1;
+                $strut2;
                 azimuthalOffset 240;
             }
         }
 
         shaft
         {
-            nElements   21;
+            nElements   10;
             elementProfiles (cylinder);
             elementData
             ( // axialDistance, diameter
@@ -115,7 +121,7 @@ turbine
         {
             NACA0021
             {
-                tableType   singleRe;
+                tableType   multiRe; // singleRe || multiRe
                 Re          1.6e5;
                 data        (#include "NACA0021_1.6e5");
                 ReList      (4e4 8e4 1.6e5 3.6e5 7e5 1e6 2e6 5e6);
@@ -129,6 +135,22 @@ turbine
                 (
                     (-180 0 1.1)
                     (180 0 1.1)
+                );
+            }
+            corner
+            {
+                data
+                (
+                    (-180 0 0.06)
+                    (180 0 0.06)
+                );
+            }
+            empty
+            {
+                data
+                (
+                    (-180 0 0)
+                    (180 0 0)
                 );
             }
         }
