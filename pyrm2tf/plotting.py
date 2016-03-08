@@ -135,6 +135,9 @@ def plot_cp(ax=None, angle0=540.0, save=False):
     print("Mean C_D = {:.2f}".format(df.cd[df.angle_deg >= angle0].mean()))
     if ax is None:
         fig, ax = plt.subplots()
+    ymin, ymax = None, None
+    if df.cp.max() > 2 or df.cp.min() < -0.5:
+        ax.set_ylim((-0.1, 0.7))
     ax.plot(df.angle_deg, df.cp)
     ax.set_xlabel("Azimuthal angle (degrees)")
     ax.set_ylabel("$C_P$")
