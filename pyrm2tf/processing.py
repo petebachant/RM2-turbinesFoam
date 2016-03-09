@@ -229,11 +229,11 @@ def read_funky_log():
 
 def load_exp_recovery():
     """Load recovery terms from experimental data. Must be run with IPython."""
-    start_dir = os.getcwd()
+    start_dir = os.path.split(os.path.split(__file__)[0])[0]
     exp_dir = os.path.join(os.path.expanduser("~"), "Google Drive", "Research",
-                           "Experiments", "RVAT Re dep")
+                           "Experiments", "RM2 tow tank")
     os.chdir(exp_dir)
-    import py_rvat_re_dep.plotting as exppl
+    import pyrm2tt.plotting as exppl
     wm = exppl.WakeMap(1.0)
     dUdy = wm.dUdy
     dUdz = wm.dUdz
