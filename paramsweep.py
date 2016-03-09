@@ -26,12 +26,12 @@ def get_dt():
 
 def set_tsr_fluc(val=0.0):
     """Set TSR fluctuation amplitude."""
-    replace_value("system/fvOptions", "tsrAmplitude", val)
+    replace_value("system/fvOptions", "tsrAmplitude", str(val))
 
 
 def set_tsr(val):
     """Set mean tip speed ratio."""
-    replace_value("system/fvOptions", "tipSpeedRatio", val)
+    replace_value("system/fvOptions", "tipSpeedRatio", str(val))
 
 
 def log_perf(param="tsr", append=True):
@@ -73,8 +73,13 @@ def set_blockmesh_resolution(nx=48, ny=None, nz=None):
                                       "blocks", blocks)
 
 
-def set_dt(dt=0.005):
-    """Set `deltaT` in `controlDict`."""
+def set_dt(dt=0.005, tsr=None, tsr_0=3.1):
+    """Set `deltaT` in `controlDict`. Will scale proportionally if `tsr` and
+    `tsr_0` are supplied, such that steps-per-rev is consistent with `tsr_0`.
+    """
+    if tsr is not None:
+        dt = dt*tsr_0/tsr
+        print("Setting deltaT = dt*tsr_0/tsr = {:.3f}".format(dt))
     dt = str(dt)
     foampy.dictionaries.replace_value("system/controlDict", "deltaT", dt)
 
@@ -104,6 +109,8 @@ def param_sweep(param="tsr", start=None, stop=None, step=None, dtype=float,
         print("Setting {} to {}".format(param, p))
         if param == "tsr":
             set_tsr(p)
+            # Set time step to keep steps-per-rev constant
+            set_dt(tsr=p)
         elif param == "nx":
             set_blockmesh_resolution(nx=p)
         elif param == "dt":
@@ -133,6 +140,7 @@ def param_sweep(param="tsr", start=None, stop=None, step=None, dtype=float,
     # Set parameters back to defaults
     if param == "tsr":
         set_tsr(3.1)
+        set_dt()
     elif param == "nx":
         set_blockmesh_resolution()
     elif param == "dt":
