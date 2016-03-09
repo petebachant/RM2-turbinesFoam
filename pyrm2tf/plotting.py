@@ -241,11 +241,10 @@ def plot_strut_perf(save=False, **kwargs):
 
 
 def make_recovery_bar_chart(ax=None, save=False):
-    """
-    Create a bar chart with x-labels for each recovery term and 5 different
+    """Create a bar chart with x-labels for each recovery term and 5 different
     bars per term, corresponding to each CFD case and the experimental data.
     """
-    A_exp = 3.0*0.625
+    A_exp = 2.75*R*0.75*H
     df = pd.DataFrame(index=["y_adv", "z_adv", "turb_trans", "pressure_trans",
                              "visc_trans"])
     df["ALM"] = pd.Series(read_funky_log(), name="ALM")*A_c
