@@ -272,7 +272,7 @@ def plot_verification(save=False):
     dt_fpath = "processed/dt_sweep.csv"
     nx_fpath = "processed/nx_sweep.csv"
     ylim = (None, None)
-    # ylim = (0.26, 0.31)
+    ylim = (0.24, 0.34)
     if os.path.isfile(dt_fpath):
         df_dt = pd.read_csv(dt_fpath)
         df_dt["steps_per_rev"] = 1.0/(df_dt.tsr/R*U/(2.0*np.pi))/df_dt.dt
