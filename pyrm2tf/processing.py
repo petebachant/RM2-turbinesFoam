@@ -10,7 +10,7 @@ import numpy as np
 import os
 import sys
 import foampy
-from pxl import fdiff
+from pxl import fdiff, timeseries as ts
 import pandas as pd
 
 # Some constants
@@ -234,7 +234,7 @@ def load_exp_recovery():
                            "Experiments", "RM2 tow tank")
     os.chdir(exp_dir)
     import pyrm2tt.plotting as exppl
-    wm = exppl.WakeMap(1.0)
+    wm = exppl.WakeMap()
     dUdy = wm.dUdy
     dUdz = wm.dUdz
     tt = wm.ddy_upvp + wm.ddz_upwp
