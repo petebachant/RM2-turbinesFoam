@@ -1,8 +1,5 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-"""
-Processing functions for RM2 turbinesFoam case.
-"""
+"""Processing functions for RM2 turbinesFoam case."""
+
 from __future__ import division, print_function
 import matplotlib.pyplot as plt
 import re
@@ -12,6 +9,7 @@ import sys
 import foampy
 from pxl import fdiff, timeseries as ts
 import pandas as pd
+
 
 # Some constants
 R = 0.5375
@@ -28,20 +26,6 @@ ylabels = {"meanu" : r"$U/U_\infty$",
            "meanv" : r"$V/U_\infty$",
            "meanw" : r"$W/U_\infty$",
            "meanuv" : r"$\overline{u'v'}/U_\infty^2$"}
-
-
-class WakeMap(object):
-    """
-    Object that represents a wake map or statistics.
-    """
-    def __init__(self):
-        self.load()
-
-    def load_single_time(self, time):
-        """
-        Loads data from a single time step.
-        """
-        timedir = "postProcessing/sets/{}".format(time)
 
 
 def loadwake(time):
@@ -99,6 +83,15 @@ def calcwake(t1=0.0):
             "xvorticity" : xvorticity,
             "y/R" : y_R,
             "z/H" : z_H}
+
+
+def load_exp_wake():
+    """Load wake measurement data. Must be run with IPython."""
+    exp_dir = os.path.join(os.path.expanduser("~"), "Google Drive", "Research",
+                           "Experiments", "RM2 tow tank")
+    df = pd.read_csv(os.path.join(exp_dir, "Data", "Processed",
+                     "Wake-1.0-0.0.csv"))
+    return df
 
 
 def load_u_profile(z_H=0.0):
