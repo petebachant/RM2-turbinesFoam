@@ -27,10 +27,12 @@ turbine
         selectionMode   cellSet;    // cellSet // points //cellZone
         cellSet         turbine;
         freeStreamVelocity (1 0 0);
-        tipSpeedRatio   3.1;
         origin          (0 0 0);
-        axis            (0 0 1); // negative for opposite rotation
-        rotorRadius     0.5375; // for tip speed ratio calculation
+        axis            (0 0 1);    // Negative for opposite rotation
+        rotorRadius     0.5375;     // For tip speed ratio calculation
+        tipSpeedRatio   3.1;
+        tsrAmplitude    0.0;        // Amplitude for TSR oscillation; 0.14
+        tsrPhase        1.8;        // Angle of first peak (rad) ~ 103 deg
         addedMass       on;
 
         dynamicStall
