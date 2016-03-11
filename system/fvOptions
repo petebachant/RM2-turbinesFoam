@@ -47,7 +47,7 @@ turbine
 
         flowCurvature
         {
-            active              off;
+            active              on;
             flowCurvatureModel  Goude;
         }
 
