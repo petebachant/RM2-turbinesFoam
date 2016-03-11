@@ -292,11 +292,11 @@ def make_recovery_bar_chart(ax=None, save=False):
 
 def plot_verification(save=False):
     """Plot spatial and temporal grid dependence."""
-    fig, ax = plt.subplots(figsize=(7.5, 3.5), ncols=2)
+    fig, ax = plt.subplots(figsize=(7.5, 3), ncols=2)
     dt_fpath = "processed/dt_sweep.csv"
     nx_fpath = "processed/nx_sweep.csv"
     ylim = (None, None)
-    ylim = (0.24, 0.34)
+    ylim = (0.22, 0.32)
     if os.path.isfile(dt_fpath):
         df_dt = pd.read_csv(dt_fpath)
         df_dt["steps_per_rev"] = 1.0/(df_dt.tsr/R*U/(2.0*np.pi))/df_dt.dt
