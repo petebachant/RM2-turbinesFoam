@@ -84,6 +84,11 @@ def set_dt(dt=0.005, tsr=None, tsr_0=3.1):
     foampy.dictionaries.replace_value("system/controlDict", "deltaT", dt)
 
 
+def set_talpha(val=6.25):
+    """Set `TAlpha` value for the Leishman--Beddoes SGC dynamic stall model."""
+    foampy.dictionaries.replace_value("system/fvOptions", "TAlpha", str(val))
+
+
 def run_solver(parallel=True):
     """Run `pimpleFoam`."""
     if parallel:
@@ -115,6 +120,8 @@ def param_sweep(param="tsr", start=None, stop=None, step=None, dtype=float,
             set_blockmesh_resolution(nx=p)
         elif param == "dt":
             set_dt(p)
+        elif param == "talpha":
+            set_talpha(p)
         if p == param_list[0] or param == "nx":
             call("./Allclean")
             print("Running blockMesh")
@@ -145,6 +152,8 @@ def param_sweep(param="tsr", start=None, stop=None, step=None, dtype=float,
         set_blockmesh_resolution()
     elif param == "dt":
         set_dt()
+    elif param == "talpha":
+        set_talpha()
 
 
 if __name__ == "__main__":
@@ -152,7 +161,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run mulitple simulations, "
                                      "varying a single parameter.")
     parser.add_argument("parameter", default="tsr", help="Parameter to vary",
-                        nargs="?", choices=["tsr", "nx", "dt"])
+                        nargs="?", choices=["tsr", "nx", "dt", "talpha"])
     parser.add_argument("start", default=1.1, type=float, nargs="?")
     parser.add_argument("stop", default=4.7, type=float, nargs="?")
     parser.add_argument("step", default=0.5, type=float, nargs="?")
