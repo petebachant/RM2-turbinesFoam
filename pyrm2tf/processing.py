@@ -134,6 +134,7 @@ def load_vel_map(component="u"):
         rawdata = np.loadtxt(os.path.join(data_dir, fname), unpack=True)
         vel.append(rawdata[columns[component]])
     y_R = rawdata[0]/R
+    z_H = np.array(z_H)/H
     vel = np.array(vel).reshape((len(z_H), len(y_R)))
     df = pd.DataFrame(vel, index=z_H, columns=y_R)
     return df

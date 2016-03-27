@@ -38,7 +38,7 @@ def plot_meancontquiv(save=False, show=False,
     mean_w = load_vel_map("w")
     y_R = np.round(np.asarray(mean_u.columns.values, dtype=float), decimals=4)
     z_H = np.asarray(mean_u.index.values, dtype=float)
-    plt.figure(figsize=(7.5, 4.0))
+    plt.figure(figsize=(7.5, 4.4))
     # Add contours of mean velocity
     cs = plt.contourf(y_R, z_H, mean_u,
                       np.arange(0.15, 1.25, 0.05), cmap=plt.cm.coolwarm)
@@ -69,7 +69,7 @@ def plot_meancontquiv(save=False, show=False,
     plot_exp_lines()
     ax = plt.axes()
     ax.set_aspect(H/R)
-    plt.yticks(np.around(np.arange(-1.125, 1.126, 0.125), decimals=2))
+    plt.yticks(np.round(np.arange(-1.25, 1.26, 0.125), decimals=2))
     plt.tight_layout()
     if show:
         plt.show()
@@ -85,9 +85,10 @@ def plot_kcont(cb_orientation="vertical", newfig=True, save=False):
     y_R = np.round(np.asarray(k.columns.values, dtype=float), decimals=4)
     z_H = np.asarray(k.index.values, dtype=float)
     if newfig:
-        plt.figure(figsize=(7.5, 1.9))
+        plt.figure(figsize=(7.5, 2))
     cs = plt.contourf(y_R, z_H, k, 20, cmap=plt.cm.coolwarm,
-                      levels=np.linspace(0, 0.09, num=19))
+                      levels=np.round(np.linspace(0, 0.06, num=19),
+                                      decimals=3))
     plt.xlabel(r"$y/R$")
     plt.ylabel(r"$z/H$")
     if cb_orientation == "horizontal":
@@ -98,10 +99,10 @@ def plot_kcont(cb_orientation="vertical", newfig=True, save=False):
                           orientation="vertical", pad=0.02)
     cb.set_label(r"$k/U_\infty^2$")
     plot_turb_lines(color="black")
-    plt.ylim((0, 0.63))
+    plt.ylim((0, 0.75))
     ax = plt.axes()
-    ax.set_aspect(2)
-    plt.yticks([0,0.13,0.25,0.38,0.5,0.63])
+    ax.set_aspect(H/R)
+    plt.yticks([0, 0.13, 0.25, 0.38, 0.5, 0.63, 0.75])
     plt.tight_layout()
     if save:
         figname = "kcont"
