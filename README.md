@@ -1,11 +1,13 @@
 RM2 turbinesFoam case files
 ===========================
 
+[![DOI](https://zenodo.org/badge/4234/petebachant/RM2-turbinesFoam.svg)](https://zenodo.org/badge/latestdoi/4234/petebachant/RM2-turbinesFoam)
+
 These case files simulate the RM2 in three dimensions using OpenFOAM's
 `pimpleFoam` solver and the
 [turbinesFoam](https://github.com/turbinesFoam/turbinesFoam)  actuator line
 model. Note this is a work-in-progress and may not be fully functional since
-the turbinesFoam API is presently unstable. 
+the turbinesFoam API is presently unstable.
 
 ## License
 
