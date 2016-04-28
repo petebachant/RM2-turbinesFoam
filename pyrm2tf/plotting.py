@@ -8,7 +8,7 @@ labels = {"y_adv": r"$-V \frac{\partial U}{\partial y}$",
           "z_adv": r"$-W \frac{\partial U}{\partial z}$",
           "turb_trans": r"Turb. trans.",
           "pressure_trans": r"$-\frac{\partial P}{\partial x}$",
-          "visc_trans": r"Visc. trans.",
+          "visc_trans": r"Visc. trans. ($\times 10^3$)",
           "rel_vel_mag": "Relative velocity (m/s)",
           "cc": "$C_c$",
           "cm": "$C_m$",
@@ -259,12 +259,15 @@ def plot_wake_profiles(z_H=1e-5, exp=False, save=False):
 def make_recovery_bar_chart(ax=None, save=False):
     """Create a bar chart with x-labels for each recovery term and 5 different
     bars per term, corresponding to each CFD case and the experimental data.
+    Viscous transport terms are multiplied by 1000.
     """
     A_exp = 2.75*R*0.75*H
     df = pd.DataFrame(index=["y_adv", "z_adv", "turb_trans", "pressure_trans",
                              "visc_trans"])
     df["ALM"] = pd.Series(read_funky_log(), name="ALM")*A_c
+    df["ALM"]["visc_trans"] *= 1000
     df["Exp."] = pd.Series(load_exp_recovery(), name="Exp.")*A_exp
+    df["Exp."]["visc_trans"] *= 1000
     if ax is None:
         fig, ax = plt.subplots(figsize=(7, 3.5))
     else:
