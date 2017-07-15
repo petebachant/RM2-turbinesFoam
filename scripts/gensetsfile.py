@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Generate sampleDict for multiple cross-stream profiles."""
+"""Generate sets file for multiple cross-stream profiles."""
 
 from __future__ import division, print_function
 import numpy as np
@@ -22,30 +22,14 @@ H = 0.807
 zmax = z_H_max*H
 zmin = z_H_min*H
 
-header = r"""/*--------------------------------*- C++ -*----------------------------------*\
-| =========                 |                                                 |
-| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  2.4.x                                 |
-|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
-|    \\/     M anipulation  |                                                 |
-\*---------------------------------------------------------------------------*/
-FoamFile
-{
-    version     2.0;
-    format      ascii;
-    class       dictionary;
-    object      sampleDict;
-}
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-"""
-
 
 def main():
     z_array = np.linspace(zmin, zmax, nz)
 
-    txt = header + "\n"
-    txt += "setFormat " + setformat + "; \n\n"
-    txt += "interpolationScheme " + interpscheme + "; \n\n"
+    txt = "\ntype sets;\n"
+    txt +='libs ("libsampling.so");\n'
+    txt += "setFormat " + setformat + ";\n"
+    txt += "interpolationScheme " + interpscheme + ";\n\n"
     txt += "sets \n ( \n"
 
     for z in z_array:
@@ -69,7 +53,7 @@ def main():
     txt += "); \n\n"
     txt += "// *********************************************************************** // \n"
 
-    with open("system/sampleDict", "w") as f:
+    with open("system/sets", "w") as f:
         f.write(txt)
 
 if __name__ == "__main__":
