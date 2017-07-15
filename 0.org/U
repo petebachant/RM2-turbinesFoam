@@ -35,7 +35,7 @@ boundaryField
     walls
     {
         type        fixedValue;
-        value       uniform (1 0 0);
+        value       uniform $flowVelocity;
     }
 
     top
@@ -46,7 +46,7 @@ boundaryField
     bottom
     {
         type        fixedValue;
-        value       uniform (1 0 0);
+        value       uniform $flowVelocity;
     }
 
     "proc.*"
