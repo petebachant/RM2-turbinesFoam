@@ -149,12 +149,14 @@ def param_sweep(param="tsr", start=None, stop=None, step=None, dtype=float,
         dtype = int
     param_list = np.arange(start, stop, step, dtype=dtype)
     for p in param_list:
-        print("Setting {} to {}".format(param, p))
+        print("Running with {} = {}".format(param, p))
         if param == "talpha":
             set_talpha(p)
         if p == param_list[0] or param == "nx":
             foampy.clean(remove_zero=True)
             mesh = True
+        else:
+            mesh = False
         # Update kwargs for this value
         kwargs.update({param: p})
         run(parallel=parallel, tee=tee, mesh=mesh, reconstruct=False,
