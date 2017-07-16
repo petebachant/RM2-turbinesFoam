@@ -11,3 +11,6 @@ dynamicCode
 figures
 processor*
 system/sets
+system/turbineOperatingParams
+system/blockMeshDict
+system/controlDict
