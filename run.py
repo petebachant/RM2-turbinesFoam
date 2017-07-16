@@ -25,7 +25,8 @@ def get_mesh_dims():
 
 def get_dt():
     """Read ``deltaT`` from ``controlDict``."""
-    return foampy.dictionaries.read_single_line_value("controlDict", "deltaT")
+    return foampy.dictionaries.read_single_line_value("controlDict",
+                                                      keyword="deltaT")
 
 
 def log_perf(param="tsr", append=True):
