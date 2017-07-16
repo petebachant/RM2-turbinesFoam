@@ -206,8 +206,7 @@ def run(tsr=3.1, tsr_amp=0.0, tsr_phase=1.8, nx=48, mesh=True, parallel=False,
             foampy.run("reconstructParMesh", args="-constant -time 0", tee=tee)
     foampy.run("pimpleFoam", parallel=parallel, tee=tee, overwrite=overwrite)
     if parallel and reconstruct:
-        foampy.run("reconstructPar", args="-latestTime", tee=tee,
-                   overwrite=overwrite)
+        foampy.run("reconstructPar", tee=tee, overwrite=overwrite)
     if post:
         post_process(overwrite=overwrite)
 
